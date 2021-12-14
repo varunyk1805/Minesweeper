@@ -6,9 +6,10 @@
 //        - натисканням правої кнопки миші ставити позначки на комірки
 // 5. Функція генерації індексів комірок з мінами/
 //    - вибір складності гри
-// 6. Локальне зберігання 10 найкращих результатів/рекордів гри в розрізі рівнів складності гри
-// 7. Користувацький рівень складності
-// 8. Таймер для різних рівнів гри
+// 6. Автоматичне відкриття сусідніх пустих клітинок
+// 7. Локальне зберігання 10 найкращих результатів/рекордів гри в розрізі рівнів складності гри
+// 8. Користувацький рівень складності
+// 9. Таймер для різних рівнів гри
 
 
 // РІВНІ СКЛАДНОСТІ
@@ -20,22 +21,49 @@
 
 const widthInput = document.querySelector('.width__input');
 const heightInput = document.querySelector('.height__input');
+const valueInput = document.querySelector('.value__input');
 const startBtn = document.querySelector('.start-btn');
 const miner = document.querySelector('.miner');
 
-const mines = [1, 2, 6, 8, 13, 16, 21, 24, 26, 32, 36, 38, 41, 43, 48, 51, 55, 59, 63, 64, 68, 73, 75, 78, 80, 83, 86, 90, 91, 96, 98];
+let mines = [];
 
-console.log(mines.length);
 const minerArray = [];
 let widthMiner = +widthInput.value;
 let heightMiner = +heightInput.value;
+let valueMiner = +valueInput.value;
+let valueItems = widthMiner * heightMiner;
+
+valueInput.setAttribute('max', valueItems);
+
+widthInput.addEventListener('input', () => {
+    valueMiner = +valueInput.value;
+    widthMiner = +widthInput.value;
+    valueItems = widthMiner * heightMiner;
+    if (valueMiner > valueItems) {
+        valueInput.setAttribute('value', valueItems);
+        valueInput.value = valueItems;
+    };
+    valueInput.setAttribute('max', valueItems);
+});
+
+heightInput.addEventListener('input', () => {
+    valueMiner = +valueInput.value;
+    heightMiner = +heightInput.value;
+    valueItems = widthMiner * heightMiner;
+    if (valueMiner > valueItems) {
+        valueInput.setAttribute('value', valueItems);
+        valueInput.value = valueItems;
+    };
+    valueInput.setAttribute('max', valueItems);
+});
 
 startBtn.addEventListener('click', event => {
     event.preventDefault();
     miner.innerHTML = '';
     widthMiner = +widthInput.value;
     heightMiner = +heightInput.value;
-    console.log(widthMiner, heightMiner);
+    valueMiner = +valueInput.value;
+    valueItems = widthMiner * heightMiner;
     renderMiner();
 });
 
@@ -43,6 +71,21 @@ miner.addEventListener('contextmenu', event => {
     event.preventDefault();
 });
 
+const numberRandomUnique = () => {
+    const numberRandom = Math.round(Math.random() * (valueItems - 1) + 1);
+    if (!mines.includes(numberRandom)) {
+        mines.push(numberRandom);
+    } else {
+        numberRandomUnique();
+    };
+};
+
+const minesGeneration = value => {
+    mines = [];
+    for (let i = 1; i <= value; i += 1) {
+        numberRandomUnique();
+    };
+};
 
 miner.addEventListener('mousedown', event => {
     event.preventDefault();
@@ -64,6 +107,7 @@ miner.addEventListener('mousedown', event => {
 });
 
 const renderMiner = () => {
+    minesGeneration(valueMiner);
     const minerStrings = [];
 
     for (let i = 0; i < heightMiner; i += 1) {
