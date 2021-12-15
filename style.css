@@ -4,6 +4,54 @@
   margin: 0;
 }
 
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.settings {
+  display: flex;
+}
+
+.settings__box {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.radio-btn {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.label__text {
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.radio:checked + .label::before {
+  background-image: radial-gradient(circle at center, blue 50%, white 50%);
+}
+
 .miner {
   /* margin: 0 auto; */
   display: flex;
@@ -21,7 +69,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 2px solid black;
+  outline: 1px solid black;
   background-color: brown;
   width: 25px;
   height: 25px;
@@ -32,13 +80,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 2px solid black;
-  background-color: cadetblue;
+  outline: 1px solid black;
   width: 25px;
   height: 25px;
 }
 
-.overlay {
+.item__open {
+  /* background-color: white; */
+  color: black;
+}
+
+.item__hidden {
+  background-color: cadetblue;
+  /* color: transparent; */
+}
+
+.item__mark {
+  background-color: red;
+  /* color: transparent; */
+}
+
+/* .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -69,4 +131,4 @@
   height: 100%;
   outline: 2px solid white;
   opacity: 0.7;
-}
+} */

@@ -9,18 +9,54 @@
 </head>
 <body>
     <form>
-        <label class="width">
-            width
-            <input type="number" class="width__input" min="9" max="30" value="9">
-        </label>
-        <label class="height">
-            height
-            <input type="number" class="height__input" min="9" max="24" value="9">
-        </label>
-        <label class="value">
-            mines
-            <input type="number" class="value__input" min="10" max="668" value="10">
-        </label>
+        <div class="settings">
+            <div class="settings__box">
+                <input id="beginner" class="radio visually-hidden" type="radio" name="level" value="beginner" checked>
+                <label for="beginner" class="label">
+                    <span class="label__text">
+                        Beginner
+                        <span>10 mines</span>
+                        <span>field 9x9 items</span>
+                    </span>
+                </label>
+                <input id="amateur" class="radio visually-hidden" type="radio" name="level" value="amateur">
+                <label for="amateur" class="label">
+                    <span class="label__text">
+                        Amateur
+                        <span>40 mines</span>
+                        <span>field 16x16 items</span>
+                    </span>
+                </label>
+                <input id="professional" class="radio visually-hidden" type="radio" name="level" value="professional">
+                <label for="professional" class="label">
+                    <span class="label__text">
+                        Professional
+                        <span>99 mines</span>
+                        <span>field 16x30 items</span>
+                    </span>
+                </label>
+            </div>
+            <div class="settings__box">
+                <input id="special" class="radio special visually-hidden" type="radio" name="level" value="special">
+                <label for="special" class="label">
+                    <span class="label__text">
+                        Special
+                    </span>
+                </label>
+                <label class="width">
+                    width
+                    <input type="number" class="width__input" min="9" max="30" value="9" disabled>
+                </label>
+                <label class="height">
+                    height
+                    <input type="number" class="height__input" min="9" max="24" value="9" disabled>
+                </label>
+                <label class="value">
+                    mines
+                    <input type="number" class="value__input" min="10" max="668" value="10" disabled>
+                </label>
+            </div>
+        </div>
         <button type="submit" class="start-btn">START</button>
     </form>
     <div class="miner"></div>
