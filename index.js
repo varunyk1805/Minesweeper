@@ -8,14 +8,16 @@
 //    - вибір складності гри
 // +++ 6. Особливий рівень складності
 // +++ 7. Автоматичне відкриття сусідніх пустих клітинок (рекурсія)
-// 8. Оптимізувати підфункції функції cellOpenAuto
-// 9. Комірка з поміткою не повинна відкриватися
-// 10. При відкриванні комірки з міною GAME OVER і вибір нової гри
+// +++ 8. Оптимізувати підфункції функції cellOpenAuto
+// +++ 9. Комірка з поміткою не повинна відкриватися
+// +++ 10. При відкриванні комірки з міною GAME OVER
+// 10a. вибір нової гри
 // 11. Відлік часу і відображення кількості ще не знайдених мін
 // 12. Локальне зберігання 10 найкращих результатів/рекордів гри в розрізі рівнів складності
 //    (рівень складності/тривалість гри/дата і час гри/ім'я гравця)
-// 13. Оформити візуальну частину
-// 14. В README.md описати функціонал і реалізації
+// 13. Пофіксити ширину minefield
+// 14. Оформити візуальну частину
+// 15. В README.md описати функціонал і реалізації
 
 // !!!!! РІВНІ СКЛАДНОСТІ
 // * - 9х9 - 10 мін
@@ -46,13 +48,23 @@ const specialLvl = document.querySelector('#special');
 const minesIndexArray = [];
 let minefieldWidth = +widthInput.value;
 let minefieldHeight = +heightInput.value;
+const minefieldWidthMax = +widthInput.getAttribute('max');
+const minefieldHeightMax = +heightInput.getAttribute('max');
 let minesAmount = +amountInput.value;
 let cellsAmount = minefieldWidth * minefieldHeight;
 let minesAmountMax = Math.round(cellsAmount * 0.93);
 
+console.log(minefieldWidthMax, minefieldHeightMax);
+
 const minesAmountMaxAuto = () => {
     minefieldWidth = +widthInput.value;
     minefieldHeight = +heightInput.value;
+    if (minefieldWidth > minefieldWidthMax) {
+        widthInput.value = minefieldWidthMax;
+    };
+    if (minefieldHeight > minefieldHeightMax) {
+        heightInput.value = minefieldHeightMax;
+    };
     minesAmount = +amountInput.value;
     cellsAmount = minefieldWidth * minefieldHeight;
     minesAmountMax = Math.round(cellsAmount * 0.93);
@@ -61,21 +73,23 @@ const minesAmountMaxAuto = () => {
         amountInput.setAttribute('value', minesAmountMax);
         amountInput.value = minesAmountMax;
     };
+
     amountInput.setAttribute('max', minesAmountMax);
 };
 
 widthInput.addEventListener('input', minesAmountMaxAuto);
 heightInput.addEventListener('input', minesAmountMaxAuto);
+amountInput.addEventListener('input', minesAmountMaxAuto);
 
-const AAA = () => {
+const inputDisabled = () => {
     widthInput.setAttribute('disabled', 'disabled');
     heightInput.setAttribute('disabled', 'disabled');
     amountInput.setAttribute('disabled', 'disabled');
 };
 
-beginnerLvl.addEventListener('change', AAA);
-amateurLvl.addEventListener('change', AAA);
-professionalLvl.addEventListener('change', AAA);
+beginnerLvl.addEventListener('change', inputDisabled);
+amateurLvl.addEventListener('change', inputDisabled);
+professionalLvl.addEventListener('change', inputDisabled);
 
 specialLvl.addEventListener('change', () => {
     widthInput.removeAttribute('disabled');
@@ -146,8 +160,7 @@ minefield.addEventListener('mousedown', event => {
             // Видалення усіх символів крім чисел із cellIndex
             const numberOfcellIndex = +cellIndex.replace(/[a-zа-яё]/gi, '');
 
-            const cellOpenAutoRight = () => {
-                cellIndex = `index${numberOfcellIndex + 1}`;
+            const cellOpen = () => {
                 valueId = `#${cellIndex}`;
                 cellCurrent = document.querySelector(valueId);
                 if (!cellCurrent.classList.contains('cell--open')) {
@@ -156,83 +169,39 @@ minefield.addEventListener('mousedown', event => {
                     cellCurrent.classList.add('cell--open');
                     cellOpenAuto(cellCurrent);
                 };
+            };
+
+            const cellOpenAutoRight = () => {
+                cellIndex = `index${numberOfcellIndex + 1}`;
+                cellOpen();
             };
             const cellOpenAutoDownRight = () => {
                 cellIndex = `index${numberOfcellIndex + minefieldWidth + 1}`;
-                valueId = `#${cellIndex}`;
-                cellCurrent = document.querySelector(valueId);
-                if (!cellCurrent.classList.contains('cell--open')) {
-                    cellCurrent.classList.remove('cell--hidden');
-                    cellCurrent.classList.remove('cell--flag');
-                    cellCurrent.classList.add('cell--open');
-                    cellOpenAuto(cellCurrent);
-                };
+                cellOpen();
             };
             const cellOpenAutoDown = () => {
                 cellIndex = `index${numberOfcellIndex + minefieldWidth}`;
-                valueId = `#${cellIndex}`;
-                cellCurrent = document.querySelector(valueId);
-                if (!cellCurrent.classList.contains('cell--open')) {
-                    cellCurrent.classList.remove('cell--hidden');
-                    cellCurrent.classList.remove('cell--flag');
-                    cellCurrent.classList.add('cell--open');
-                    cellOpenAuto(cellCurrent);
-                };
+                cellOpen();
             };
             const cellOpenAutoDownLeft = () => {
                 cellIndex = `index${numberOfcellIndex + minefieldWidth - 1}`;
-                valueId = `#${cellIndex}`;
-                cellCurrent = document.querySelector(valueId);
-                if (!cellCurrent.classList.contains('cell--open')) {
-                    cellCurrent.classList.remove('cell--hidden');
-                    cellCurrent.classList.remove('cell--flag');
-                    cellCurrent.classList.add('cell--open');
-                    cellOpenAuto(cellCurrent);
-                };
+                cellOpen();
             };
             const cellOpenAutoLeft = () => {
                 cellIndex = `index${numberOfcellIndex - 1}`;
-                valueId = `#${cellIndex}`;
-                cellCurrent = document.querySelector(valueId);
-                if (!cellCurrent.classList.contains('cell--open')) {
-                    cellCurrent.classList.remove('cell--hidden');
-                    cellCurrent.classList.remove('cell--flag');
-                    cellCurrent.classList.add('cell--open');
-                    cellOpenAuto(cellCurrent);
-                };
+                cellOpen();
             };
             const cellOpenAutoUpLeft = () => {
                 cellIndex = `index${numberOfcellIndex - minefieldWidth - 1}`;
-                valueId = `#${cellIndex}`;
-                cellCurrent = document.querySelector(valueId);
-                if (!cellCurrent.classList.contains('cell--open')) {
-                    cellCurrent.classList.remove('cell--hidden');
-                    cellCurrent.classList.remove('cell--flag');
-                    cellCurrent.classList.add('cell--open');
-                    cellOpenAuto(cellCurrent);
-                };
+                cellOpen();
             };
             const cellOpenAutoUp = () => {
                 cellIndex = `index${numberOfcellIndex - minefieldWidth}`;
-                valueId = `#${cellIndex}`;
-                cellCurrent = document.querySelector(valueId);
-                if (!cellCurrent.classList.contains('cell--open')) {
-                    cellCurrent.classList.remove('cell--hidden');
-                    cellCurrent.classList.remove('cell--flag');
-                    cellCurrent.classList.add('cell--open');
-                    cellOpenAuto(cellCurrent);
-                };
+                cellOpen();
             };
             const cellOpenAutoUpRight = () => {
                 cellIndex = `index${numberOfcellIndex - minefieldWidth + 1}`;
-                valueId = `#${cellIndex}`;
-                cellCurrent = document.querySelector(valueId);
-                if (!cellCurrent.classList.contains('cell--open')) {
-                    cellCurrent.classList.remove('cell--hidden');
-                    cellCurrent.classList.remove('cell--flag');
-                    cellCurrent.classList.add('cell--open');
-                    cellOpenAuto(cellCurrent);
-                };
+                cellOpen();
             };
             // Відкриття комірки у верхньому лівому куті
             if (numberOfcellIndex === 1) {
@@ -305,8 +274,10 @@ minefield.addEventListener('mousedown', event => {
     };
 
     if (event.button === 0) {
+        if (cellCurrent.classList.contains('cell--flag')) return;
+        if (cellCurrent.classList.contains('cell--open')) return;
+        if (cellCurrent.classList.contains('cell--mine')) alert('GAME OVER');
         cellCurrent.classList.remove('cell--hidden');
-        cellCurrent.classList.remove('cell--flag');
         cellCurrent.classList.add('cell--open');
         cellOpenAuto(cellCurrent);
     };
