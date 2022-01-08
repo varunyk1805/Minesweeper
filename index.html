@@ -8,58 +8,132 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
-        <div class="settings">
-            <div class="settings__box">
-                <input id="beginner" class="radio visually-hidden" type="radio" name="level" value="beginner" checked>
-                <label for="beginner" class="label">
-                    <span class="label__text">
-                        Beginner
-                        <span>10 mines</span>
-                        <span>field 9x9 items</span>
-                    </span>
-                </label>
-                <input id="amateur" class="radio visually-hidden" type="radio" name="level" value="amateur">
-                <label for="amateur" class="label">
-                    <span class="label__text">
-                        Amateur
-                        <span>40 mines</span>
-                        <span>field 16x16 items</span>
-                    </span>
-                </label>
-                <input id="professional" class="radio visually-hidden" type="radio" name="level" value="professional">
-                <label for="professional" class="label">
-                    <span class="label__text">
-                        Professional
-                        <span>99 mines</span>
-                        <span>field 16x30 items</span>
-                    </span>
-                </label>
-            </div>
-            <div class="settings__box">
-                <input id="special" class="radio special visually-hidden" type="radio" name="level" value="special">
-                <label for="special" class="label">
-                    <span class="label__text">
-                        Special
-                    </span>
-                </label>
-                <label class="width">
-                    width
-                    <input type="number" class="width__input" min="9" max="30" value="9" disabled>
-                </label>
-                <label class="height">
-                    height
-                    <input type="number" class="height__input" min="9" max="24" value="9" disabled>
-                </label>
-                <label class="value">
-                    mines
-                    <input type="number" class="amount__input" min="10" max="668" value="10" disabled>
-                </label>
-            </div>
+    <div class="container">
+        <div class="top">
+            <button class="level-btn" type="button">Level</button>
+            <button class="records-btn" type="button">Records</button>
         </div>
-        <button type="submit" class="start-btn">START</button>
-    </form>
-    <div class="minefield"></div>
+        <div class="playfield">
+            <div class="backdrop is-hidden">
+                <form class="level__form">
+                    <div class="settings">
+                        <div class="settings__box">
+                            <input id="beginner" class="radio visually-hidden" type="radio" name="level" value="beginner" checked>
+                            <label for="beginner" class="label">
+                                <span class="label__text">
+                                    Beginner
+                                    <span>10 mines</span>
+                                    <span>field 9x9</span>
+                                </span>
+                            </label>
+                            <input id="amateur" class="radio visually-hidden" type="radio" name="level" value="amateur">
+                            <label for="amateur" class="label">
+                                <span class="label__text">
+                                    Amateur
+                                    <span>40 mines</span>
+                                    <span>field 16x16</span>
+                                </span>
+                            </label>
+                            <input id="professional" class="radio visually-hidden" type="radio" name="level" value="professional">
+                            <label for="professional" class="label">
+                                <span class="label__text">
+                                    Professional
+                                    <span>99 mines</span>
+                                    <span>field 16x30</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="settings__box">
+                            <input id="special" class="radio special visually-hidden" type="radio" name="level" value="special">
+                            <label for="special" class="label">
+                                <span class="label__text">
+                                    Special
+                                </span>
+                            </label>
+                            <label class="width">
+                                width (9 - 24)
+                                <input type="number" class="width__input" min="9" max="30" value="9" disabled>
+                            </label>
+                            <label class="height">
+                                height (9 - 30)
+                                <input type="number" class="height__input" min="9" max="24" value="9" disabled>
+                            </label>
+                            <label class="value">
+                                mines (10 - 668)
+                                <input type="number" class="amount__input" min="10" max="668" value="10" disabled>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="button" class="start-btn">Start</button>
+                </form>
+                <div class="end-game">
+                    <div class="end-game__header">
+                        <p class="win">Congratulations, you won!</p>
+                        <p class="new-record">New record!!!</p>
+                        <p class="loss">Sorry, you lost!</p>
+                    </div>
+                    <div class="statistics">
+                        <div class="statistics__time">
+                            <p class="game-time"></p>
+                            <p class="game-date"></p>
+                        </div>
+                        <div class="statistics__game">
+                            <div>
+                                <p class="best-time"></p>
+                                <p class="played-games"></p>
+                                <p class="won-games"></p>
+                            </div>
+                            <p class="percentage"></p>
+                        </div>
+                    </div>
+                    <div class="end-game__btn">
+                        <button class="new-game" type="button">New game</button>
+                        <button class="level__change" type="button">Change level</button>
+                    </div>
+                </div>
+                <div class="records">
+                    <div class="records__top">
+                        <p>Records</p>
+                        <form class="records-buttons">
+                            <input id="record__beginner" type="radio" name="records" class="visually-hidden" checked>
+                            <label for="record__beginner" class="beginner-btn">
+                                Beginner
+                            </label>
+                            <input id="record__amateur" type="radio" name="records" class="visually-hidden">
+                            <label for="record__amateur" class="amateur-btn">
+                                Amateur
+                            </label>
+                            <input id="record__profissional" type="radio" name="records" class="visually-hidden">
+                            <label for="record__profissional" class="professional-btn">
+                                Professional
+                            </label>
+                        </form>
+                    </div>
+                    <div class="records__content">
+                        <div class="statistics">
+                            <div class="statistics__time">
+                                <p class="records-time"></p>
+                                <p class="records-date"></p>
+                            </div>
+                            <div class="statistics__game">
+                                <div>
+                                    <p class="records-played-games"></p>
+                                    <p class="records-won-games"></p>
+                                </div>
+                                <p class="records-percentage"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="close-btn">Close</button>
+                </div>
+            </div>
+            <div class="playfield__info">
+                <div class="timer">Time:</div>
+                <div class="mines-left">Mines:</div>
+            </div>
+            <div class="minefield"></div>
+        </div>
+    </div>
     <script type="module" src="./index.js"></script>
 </body>
 </html>
