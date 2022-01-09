@@ -374,6 +374,7 @@ const openAllCell = () => {
         if (!cellItem.classList.contains('cell--open')
             && cellItem.classList.contains('cell--mine')) {
             cellItem.classList.remove('cell--hidden');
+            cellItem.classList.remove('cell--flag');
         };
     };
 };
