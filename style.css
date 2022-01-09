@@ -338,6 +338,7 @@ body {
 
 .cell--flag {
   background-color: #b81c29;
+  color: transparent;
   cursor: pointer;
 }
 

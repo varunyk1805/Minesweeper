@@ -98,7 +98,6 @@ levelFormModal.style.display = 'none';
 endGameModal.style.display = 'none';
 recordsModal.style.display = 'none';
 
-
 levelBtn.addEventListener('click', () => {
     if (levelFormModal.style.display !== 'none') {
         backdrop.classList.add('is-hidden');
@@ -149,7 +148,6 @@ const minesAmountMaxAuto = () => {
 widthInput.addEventListener('blur', minesAmountMaxAuto);
 heightInput.addEventListener('blur', minesAmountMaxAuto);
 amountInput.addEventListener('blur', minesAmountMaxAuto);
-
 
 // Функція деактивації полів вводу значень ширини/висоти поля, кількості мін
 const inputDisabled = () => {
@@ -246,7 +244,6 @@ const professionalRecords = () => {
     recordsTime.textContent = `Time: ${records.professional.time} sec`;
     recordsDate.textContent = `Date: ${records.professional.date}`;
     recordsPercentage.textContent = `Percentage: ${Math.round((records.professional.wonGames / records.professional.playedGames) * 100)} %`;
-    console.log(5555);
 };
 
 recordsBtn.addEventListener('click', () => {
@@ -266,8 +263,11 @@ recordsBtn.addEventListener('click', () => {
 });
 
 beginnerBtn.addEventListener('click', beginnerRecords);
+
 amateurBtn.addEventListener('click', amateurRecords);
+
 professionalBtn.addEventListener('click', professionalRecords);
+
 closeBtn.addEventListener('click', () => {
     backdrop.classList.add('is-hidden');
     beginnerBtn.checked = true;
@@ -374,7 +374,6 @@ const openAllCell = () => {
         if (!cellItem.classList.contains('cell--open')
             && cellItem.classList.contains('cell--mine')) {
             cellItem.classList.remove('cell--hidden');
-            // cellItem.classList.add('cell--open');
         };
     };
 };
@@ -540,7 +539,7 @@ const clickCell = event => {
             loss.style.display = 'inline';
             gameTime.textContent = `Time: ${timerValue} sec`;
             const dateGame = new Date;
-            gameDate.textContent = `Date: ${dateGame.getUTCMonth() + 1}.${dateGame.getUTCDate()}.${dateGame.getUTCFullYear()}`;
+            gameDate.textContent = `Date: ${String(dateGame.getUTCMonth() + 1).padStart(2, '0')}.${String(dateGame.getUTCDate()).padStart(2, '0')}.${dateGame.getUTCFullYear()}`;
             
             if (beginnerLvl.checked) {
                 records.beginner.playedGames += 1;
@@ -595,7 +594,7 @@ const clickCell = event => {
             win.style.display = 'inline';
             gameTime.textContent = `Time: ${timerValue} sec`;
             const dateGame = new Date;
-            gameDate.textContent = `Date: ${dateGame.getUTCMonth() + 1}.${dateGame.getUTCDate()}.${dateGame.getUTCFullYear()}`;
+            gameDate.textContent = `Date: ${String(dateGame.getUTCMonth() + 1).padStart(2, '0')}.${String(dateGame.getUTCDate()).padStart(2, '0')}.${dateGame.getUTCFullYear()}`;
             
             if (beginnerLvl.checked) {
                 records.beginner.playedGames += 1;
@@ -610,7 +609,7 @@ const clickCell = event => {
                     bestTime.textContent = `Best time: ${timerValue} sec`;
                     records.beginner.time = timerValue;
                     newRecord.style.display = 'inline';
-                    records.beginner.date = `${dateGame.getUTCMonth() + 1}.${dateGame.getUTCDate()}.${dateGame.getUTCFullYear()}`
+                    records.beginner.date = `${String(dateGame.getUTCMonth() + 1).padStart(2, '0')}.${String(dateGame.getUTCDate()).padStart(2, '0')}.${dateGame.getUTCFullYear()}`;
                 };
             };
             if (amateurLvl.checked) {
@@ -626,7 +625,7 @@ const clickCell = event => {
                     bestTime.textContent = `Best time: ${timerValue} sec`;
                     records.amateur.time = timerValue;
                     newRecord.style.display = 'inline';
-                    records.amateur.date = `${dateGame.getUTCMonth() + 1}.${dateGame.getUTCDate()}.${dateGame.getUTCFullYear()}`
+                    records.amateur.date = `${String(dateGame.getUTCMonth() + 1).padStart(2, '0')}.${String(dateGame.getUTCDate()).padStart(2, '0')}.${dateGame.getUTCFullYear()}`;
                 };
             };
             if (professionalLvl.checked) {
@@ -642,7 +641,7 @@ const clickCell = event => {
                     bestTime.textContent = `Best time: ${timerValue} sec`;
                     records.professional.time = timerValue;
                     newRecord.style.display = 'inline';
-                    records.professional.date = `${dateGame.getUTCMonth() + 1}.${dateGame.getUTCDate()}.${dateGame.getUTCFullYear()}`
+                    records.professional.date = `${String(dateGame.getUTCMonth() + 1).padStart(2, '0')}.${String(dateGame.getUTCDate()).padStart(2, '0')}.${dateGame.getUTCFullYear()}`;
                 };
             };
 
@@ -671,7 +670,6 @@ const clickCell = event => {
 };
 
 minefield.addEventListener('mousedown', clickCell);
-
 
 // Функція створення мінного (ігрового) поля та присвоєння індексів коміркам поля
 const minefieldRender = () => {
