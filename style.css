@@ -42,6 +42,7 @@ body {
   border-radius: 5px;
 
   cursor: pointer;
+  transition: background-color 250ms linear, color 250ms linear;
 }
 
 .level-btn:hover,
@@ -135,6 +136,7 @@ body {
   border: 2px solid #252525;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 250ms linear, color 250ms linear;
 }
 
 .records-buttons label:hover {
@@ -228,6 +230,7 @@ body {
   border: 2px solid #252525;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 250ms linear, color 250ms linear;
 }
 
 .start-btn:hover,
@@ -290,6 +293,7 @@ body {
   border: 2px solid #252525;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 250ms linear, color 250ms linear;
 }
 
 .end-game__btn button:hover {
